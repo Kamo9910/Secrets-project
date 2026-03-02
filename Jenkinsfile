@@ -9,10 +9,11 @@ pipeline {
       steps {
        sh '''
            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip -o awscliv2.zip
+          unzip awscliv2.zip
           ./aws/install --update -i /var/jenkins_home/.aws-cli -b /var/jenkins_home/bin
           export PATH=/var/jenkins_home/bin:$PATH
           aws --version
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 688352896861.dkr.ecr.us-east-1.amazonaws.com/secret-app
           '''
       }
     }
