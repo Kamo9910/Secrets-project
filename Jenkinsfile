@@ -19,10 +19,13 @@ pipeline {
     stage('Setup Terraform') {
       steps {
         sh '''
-          curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
-          apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-          apt-get update && apt-get install terraform
-          terraform --version
+            curl -fsSL https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip -o terraform.zip
+            unzip terraform.zip
+            mv terraform /var/jenkins_home/bin/
+            terraform --version  curl -fsSL https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip -o terraform.zip
+            unzip terraform.zip
+            mv terraform /var/jenkins_home/bin/
+            terraform --version
         '''
       }
     }
