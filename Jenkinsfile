@@ -22,9 +22,7 @@ pipeline {
             curl -fsSL https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip -o terraform.zip
             unzip terraform.zip
             mv terraform /var/jenkins_home/bin/
-            terraform --version  curl -fsSL https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip -o terraform.zip
-            unzip terraform.zip
-            mv terraform /var/jenkins_home/bin/
+            export PATH=/var/jenkins_home/bin:$PATH
             terraform --version
         '''
       }
