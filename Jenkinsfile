@@ -1,9 +1,6 @@
 pipeline {
-  agent{
-   docker {
-      image 'jenkins/jnlm-docker'
-    }
-  }
+  agent any
+  
   environment {
     AWS_REGION = "us-east-1"
     ECR_REPO = "688352896861.dkr.ecr.us-east-1.amazonaws.com/secret-app"
@@ -36,7 +33,14 @@ pipeline {
         git branch: 'main', url: 'https://github.com/Kamo9910/Secrets-project'
       }
     }
-    
+    stage('Install Docker') {
+       agent {
+          docker {
+            image 'node:18-alpine'
+            reuseNode true
+          }
+  }
+    }
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t secret-app:latest .'
