@@ -35,9 +35,9 @@ pipeline {
     stage('Install Docker') {
       steps {
         sh '''
-          apt-get update
-          apt-get install -y docker.io
-          systemctl start docker
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
           docker --version
         '''
       }
