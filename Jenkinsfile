@@ -28,6 +28,16 @@ pipeline {
         '''
       }
     }
+    stage('Install Docker') {
+      steps {
+        sh '''
+          apt-get update
+          apt-get install -y docker.io
+          systemctl start docker
+          docker --version
+        '''
+      }
+    }
     stage('Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/Kamo9910/Secrets-project'
