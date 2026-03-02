@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/your-username/secret-app.git'
+        git branch: 'main', url: 'https://github.com/Kamo9910/Secrets-project'
       }
     }
     stage('Build Docker Image') {
