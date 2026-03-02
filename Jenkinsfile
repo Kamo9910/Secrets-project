@@ -1,8 +1,9 @@
 pipeline {
-  agent any
+  agent any{
    docker {
       image 'jenkins/jnlm-docker'
     }
+  }
   environment {
     AWS_REGION = "us-east-1"
     ECR_REPO = "688352896861.dkr.ecr.us-east-1.amazonaws.com/secret-app"
