@@ -13,6 +13,7 @@ pipeline {
     stage('Setup') {
       steps {
         sh '''
+          apk add curl
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip -o awscliv2.zip
           ./aws/install --update -i /var/jenkins_home/.aws-cli -b /var/jenkins_home/bin
