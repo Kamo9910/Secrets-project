@@ -5,19 +5,6 @@ pipeline {
     ECR_REPO   = "688352896861.dkr.ecr.us-east-1.amazonaws.com/secret-app"
   }
   stages {
-    stage('AWS') {
-      agent {
-        docker{
-          image 'amazon/aws-cli'
-          args "--entrypoint=''"
-        }
-      }
-      steps {
-        sh '''
-            aws --version
-        '''
-      }
-    }
     stage('Build') {
       agent {
         docker {
@@ -47,9 +34,20 @@ pipeline {
     }
 
     stage('Push to ECR') {
+       agent {
+        docker{
+          image 'amazon/aws-cli'
+          args "--entrypoint=''"
+        }
+      }
       steps {
+
+        sh '''
+            aws --version
+        '''
         withCredentials([
           usernamePassword(
+            
             credentialsId: 'my-aws-credentials',
             usernameVariable: 'AWS_ACCESS_KEY_ID',
             passwordVariable: 'AWS_SECRET_ACCESS_KEY'
