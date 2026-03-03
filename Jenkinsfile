@@ -45,10 +45,7 @@ pipeline {
     }
     stage('Push to ECR') {
       steps {
-        withCredentials([
-          string(credentialsId: 'Access_key_ID', variable: 'AWS_ACCESS_KEY_ID'),
-          string(credentialsId: 'Secret_access_key', variable: 'AWS_SECRET_ACCESS_KEY')
-        ]) {
+        withCredentials([usernamePassword(credentialsId: 'my-aws-credentials', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
           sh '''
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
             docker tag secret-app:latest $ECR_REPO:latest
@@ -59,10 +56,7 @@ pipeline {
     }
     stage('Deploy with Terraform') {
       steps {
-        withCredentials([
-          string(credentialsId: 'Access_key_ID', variable: 'AWS_ACCESS_KEY_ID'),
-          string(credentialsId: 'Secret_access_key', variable: 'AWS_SECRET_ACCESS_KEY')
-        ]) {
+       withCredentials([usernamePassword(credentialsId: 'my-aws-credentials', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
           sh '''
             cd terraform
             terraform init
